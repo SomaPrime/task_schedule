@@ -64,6 +64,7 @@ import { mdbInput } from "mdbvue";
   }
   .trash {
     display: table;
+    margin: 0 auto;
     height: 100%;
     width: 50%;
   }
