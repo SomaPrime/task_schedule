@@ -6,7 +6,7 @@
             <div v-bind:class="['min30']">
                 <draggable v-model="element.itemList" class="center" group="timeGroup" @start="drag=true" @end="drag=false" :options="options">
                         <mdb-dropdown tag="li" style="display: table-cell" class="nav-item" v-for="(item, index) in element.itemList" :key="item.id">
-                            <mdb-dropdown-toggle dark color="primary" slot="toggle" class="item white-text" waves-fixed>{{item.id}}</mdb-dropdown-toggle>
+                            <mdb-dropdown-toggle dark color="elegant" slot="toggle" class="item white-text" waves-fixed>{{item.id}}</mdb-dropdown-toggle>
                             <mdb-dropdown-menu>
                                 <mdb-dropdown-item @click.prevent="deleteItem(index, element)">Delete</mdb-dropdown-item>
                             </mdb-dropdown-menu>
