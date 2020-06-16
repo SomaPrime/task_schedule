@@ -5,7 +5,12 @@
         <div class="timelines">
             <div v-bind:class="['min30']">
                 <draggable v-model="element.itemList" class="center" group="timeGroup" @start="drag=true" @end="drag=false" :options="options">
-                    <div class="item" v-for="item in element.itemList" :key="item.id">{{item.id}}</div>
+                        <mdb-dropdown tag="li" style="display: table-cell" class="nav-item" v-for="(item, index) in element.itemList" :key="item.id">
+                            <mdb-dropdown-toggle dark color="primary" slot="toggle" class="item white-text" waves-fixed>{{item.id}}</mdb-dropdown-toggle>
+                            <mdb-dropdown-menu>
+                                <mdb-dropdown-item @click.prevent="deleteItem(index, element)">Delete</mdb-dropdown-item>
+                            </mdb-dropdown-menu>
+                        </mdb-dropdown>
                 </draggable>
             </div>
         </div>
@@ -16,10 +21,15 @@
 // @ is an alias to /src
 // ex: import ComponentName from '@/components/file.name'
 import draggable from 'vuedraggable'
+import { mdbDropdown, mdbDropdownToggle, mdbDropdownMenu, mdbDropdownItem, } from 'mdbvue'
 export default {
   name: 'schedule',
   components: {
-    draggable
+    draggable,
+    mdbDropdown, 
+    mdbDropdownToggle, 
+    mdbDropdownMenu, 
+    mdbDropdownItem
   },
   props: {
       "date_list": Object
@@ -36,6 +46,12 @@ export default {
             disabled: true
         }
     }
+  },
+  methods: { 
+      deleteItem: function(index, element) {
+          let target_element_index = this.date_list.indexOf(element);
+          this.date_list[target_element_index].itemList.splice(index, 1);
+      }
   }
 }
 </script>

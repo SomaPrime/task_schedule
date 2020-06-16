@@ -4,7 +4,12 @@
             <mdb-input type="text" size="lg" label="Task" v-model="inputTask" outline />
         </form>
         <draggable class="itemlist" v-model="taskList" :group="{ name: 'timeGroup', pull: 'clone', put: false }" @start="drag=true" @end="drag=false" :options="options">
-            <div class="item" v-for="(item, index) in taskList" :key="item.id" @click.right.prevent="deleteItem(index)">{{item.id}}</div>
+            <mdb-dropdown tag="li" class="nav-item" v-for="(item, index) in taskList" :key="item.id">
+              <mdb-dropdown-toggle dark color="primary" slot="toggle" class="item white-text" waves-fixed>{{item.id}}</mdb-dropdown-toggle>
+              <mdb-dropdown-menu>
+                <mdb-dropdown-item @click.prevent="deleteItem(index)">Delete</mdb-dropdown-item>
+              </mdb-dropdown-menu>
+            </mdb-dropdown>
         </draggable>
         <div class="trashcontainer">
             <draggable class="trash" :group="{ name: 'timeGroup'}" @start="drag=true" @end="drag=false" :options="options">
@@ -15,7 +20,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { mdbInput } from "mdbvue";
+import { mdbDropdown, mdbDropdownToggle, mdbDropdownMenu, mdbDropdownItem, mdbInput } from "mdbvue";
 
   export default {
     name: "InputsArea",
@@ -32,7 +37,11 @@ import { mdbInput } from "mdbvue";
     },
     components: {
       draggable,
-      mdbInput
+      mdbInput,
+      mdbDropdown, 
+      mdbDropdownToggle, 
+      mdbDropdownMenu, 
+      mdbDropdownItem
     },
     methods: {
       taskSubmit: function () {
@@ -54,7 +63,7 @@ import { mdbInput } from "mdbvue";
   .itemlist .item {
     height: 50px;
     width: 150px;
-    user-select: none;
+    font-size: 15px;
   }
   .trashcontainer {
     background-color:rgba(75, 75, 75, 0.25);
@@ -70,13 +79,15 @@ import { mdbInput } from "mdbvue";
   }
   .item {
     display: table-cell;
+    width: 100%;
+    height: 100%;
     margin-right: 1px;
-    padding: 1px;
-    border: 1px solid #7f7f7f;
+    padding: 2px;
     border-radius: 5px;
     background-color: #ffffff;
     font-size: 10px;
     vertical-align: middle;
+    user-select: none;
   }
   .item:hover {
     cursor: grab;
